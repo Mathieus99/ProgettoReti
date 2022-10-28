@@ -1,7 +1,7 @@
 # :globe_with_meridians: ProgettoReti 2022/2023
-Realizzazione di una semplice _**BotNet**_ 
- 
- Linguaggio: _**Python**_ 
+Realizzazione di una _**BotNet**_ tramite socket. 
+
+Linguaggio: _**Python**_ 
 
 ## :medal_military:Gruppo
 :blue_square:[Mathieus99](https://github.com/Mathieus99) - Matteo
