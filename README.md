@@ -1,9 +1,11 @@
 # :globe_with_meridians: ProgettoReti 2022/2023
 Realizzazione di una semplice _**BotNet**_ 
  
- Linguaggio: **Python** 
+ Linguaggio: _**Python**_ 
 
-Gruppo:
-- @Mathieus99 - Matteo
-- @Trincalex - Alessandro
-- @EnzoP6 - Vincenzo
+## :medal_military:Gruppo
+:blue_square:[Mathieus99](https://github.com/Mathieus99) - Matteo
+
+:green_square:[Trincalex](https://github.com/Trincalex) - Alessandro
+
+:white_large_square:[EnzoP6](https://github.com/EnzoP6) - Vincenzo
