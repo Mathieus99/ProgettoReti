@@ -2,3 +2,8 @@
 Realizzazione di una semplice _**BotNet**_ 
  
  Linguaggio: **Python** 
+
+Gruppo:
+- @Mathieus99 - Matteo
+- @Trincalex - Alessandro
+- @EnzoP6 - Vincenzo
