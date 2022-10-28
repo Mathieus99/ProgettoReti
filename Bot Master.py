@@ -10,13 +10,15 @@ connectionSocket, addr = serverSocket.accept()
 print ('Connessione stabilita',addr)
 while True:
     com = input ("\nInserire un comando (\"help\" per la lista dei comandi): ")
+    print (com[3:len(com)])
     comando = "x"
     if com == "os":
         comando = "1"
     elif com == "ls":
         comando = "2"
-    elif com == "cd":
-        comando = "3" + input("Inserisci path: ")
+    #Cambia directory inserendo la directory destinazione dopo cd (cd directory)
+    elif com[0:2] == "cd":
+        comando = "3" + com[2:len(com)]
     elif com == "pwd":
         comando = "4"
     elif com == "cpu":
