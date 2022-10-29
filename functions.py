@@ -11,7 +11,7 @@ def cmd_list():
     print ("cpu\tVisualizza informazioni sulla CPU\n")
     print("memory\tVisualizza informazioni sulla memoria\n")
     print("disk\tVisualizza informazioni sulla memoria di massa(punto di mount, FS, ecc...)\n")
-    print("leggi \"nome file\"\tVisualizza il contenuto di un file\n")
+    print("read \"nome file\"\tVisualizza il contenuto di un file\n")
 
 #Preleva e formatta le informazioni sulla CPU
 def CPUInfo():

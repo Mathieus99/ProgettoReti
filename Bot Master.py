@@ -26,8 +26,8 @@ while True:
         comando = "6"
     elif com == "disk":
         comando = "7"
-    elif com[:5] == "leggi":
-        file = com[6:]
+    elif com[0:5] == "read ":
+        file = com[5:]
         comando = "8" + file
     elif com == "help":
         cmd_list()
