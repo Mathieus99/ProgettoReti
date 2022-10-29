@@ -21,10 +21,14 @@ while True:
         for x in ls:
             messaggio = messaggio + x + "\n"
     elif comando[0] == "3":
-        path = comando[2:len(comando)]
-        print(path)
-        os.chdir (path)
-        messaggio = "directory cambiata:\n" + os.getcwd()
+        path = comando[2:]
+        try:
+            os.chdir (path)
+            messaggio = "directory cambiata:\n" + os.getcwd()
+        except FileNotFoundError:
+            messaggio = "Directory non trovato"
+        except OSError:
+            messaggio = "Sintassi errata"
     elif comando == "4":
         messaggio = os.getcwd()
     elif comando == "5":
