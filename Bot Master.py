@@ -16,7 +16,7 @@ while True:
     elif com == "ls":
         comando = "2"
     #Cambia directory inserendo la directory destinazione dopo cd (cd directory)
-    elif com[0:3] == "cd":
+    elif com[0:3] == "cd ":
         comando = "3" + com[2:]
     elif com == "pwd":
         comando = "4"
