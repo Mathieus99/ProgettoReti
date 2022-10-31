@@ -11,6 +11,7 @@ serverName = 'localhost'
 serverPort = 12000
 clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((serverName,serverPort))
+print ("Connessione effettuata\n")
 while True:
     comando = clientSocket.recv(1024).decode()
     # Visualizza info sul sistema operativo e sulla macchina
@@ -55,6 +56,7 @@ while True:
         except Exception:
             messaggio = "Errore nell'apertura del file\n"
     elif comando == "exit":
+        print ("Connessione terminata\n")
         break
     clientSocket.send(messaggio.encode())
 clientSocket.close()
