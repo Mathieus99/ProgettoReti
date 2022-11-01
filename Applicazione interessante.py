@@ -34,9 +34,13 @@ while True:
         try:
             if path == "":
                 os.chdir(".")
+                messaggio = "directory cambiata:\n" + os.getcwd()
             else:
-                os.chdir (path)
-            messaggio = "directory cambiata:\n" + os.getcwd()
+                try:
+                    os.chdir (path)
+                    messaggio = "directory cambiata:\n" + os.getcwd()
+                except NotADirectoryError:
+                    messaggio = "Not a Directory\n"
             print ("Cambio working directory\n")
         except FileNotFoundError:
             messaggio = "Directory non trovata"
