@@ -25,7 +25,6 @@ while True:
         messaggio = ""
         for x in ls:
             messaggio = messaggio + x + "\n"
-        print ("Estraggo informazioni sul file system\n")
     #Cambia directory secondo quanto specificato in path
     elif comando[0] == "3":
         path = comando[2:]
