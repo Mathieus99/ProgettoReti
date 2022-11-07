@@ -7,9 +7,7 @@ from psutil._common import bytes2human
 import sys
 from functions import *
 
-#Ciao
-
-serverName = 'localhost'
+serverName = '192.168.1.27'
 serverPort = 12000
 clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((serverName,serverPort))

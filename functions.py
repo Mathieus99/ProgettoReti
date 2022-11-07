@@ -2,6 +2,7 @@ import psutil
 from psutil._common import bytes2human
 import platform
 import os
+
 def cmd_list():
     print ("\nLista comandi\n")
     print ("os\tVisualizza informazioni sul sistema operativo\n")
