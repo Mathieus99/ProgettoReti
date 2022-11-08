@@ -5,6 +5,7 @@ import os
 
 def cmd_list():
     print ("\nLista comandi\n")
+    print("system\tVisualizza Tutte le informazioni della macchina")
     print ("os\tVisualizza informazioni sul sistema operativo\n")
     print ("ls\tVisualizza il contenuto della directory corrente\n")
     print ("cd\tConsente di spostarsi in un altra drectory specificata dal path\n")
@@ -14,6 +15,13 @@ def cmd_list():
     print("disk\tVisualizza informazioni sulla memoria di massa(punto di mount, FS, ecc...)\n")
     print("read \"nome file\"\tVisualizza il contenuto di un file\n")
 
+#Preleva e formatta informazioni sul sistema
+def SystemInfo():
+    NetworkName = platform.node()
+    macchina = platform.machine()
+    piattaforma = platform.platform()
+    messaggio = 'OS: ' + piattaforma + '\nNetwork Name: ' + NetworkName + '\nType: ' + macchina + '\n'
+    return messaggio
 #Preleva e formatta le informazioni sulla CPU
 def CPUInfo():
     cpu = platform.processor()
