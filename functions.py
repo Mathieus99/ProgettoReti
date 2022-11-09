@@ -5,22 +5,19 @@ import os
 
 def cmd_list():
     print ("\nLista comandi\n")
-    print("system\tVisualizza Tutte le informazioni della macchina")
-    print ("os\tVisualizza informazioni sul sistema operativo\n")
-    print ("ls\tVisualizza il contenuto della directory corrente\n")
-    print ("cd\tConsente di spostarsi in un altra drectory specificata dal path\n")
-    print ("pwd\tConsente di visualizzare il path della directory corrente\n")
-    print ("cpu\tVisualizza informazioni sulla CPU\n")
-    print("memory\tVisualizza informazioni sulla memoria\n")
-    print("disk\tVisualizza informazioni sulla memoria di massa(punto di mount, FS, ecc...)\n")
-    print("read \"nome file\"\tVisualizza il contenuto di un file\n")
+    print("system\t\tVisualizza Tutte le informazioni della macchina")
+    print ("ls\t\tVisualizza il contenuto della directory corrente\n")
+    print ("cd\t\tConsente di spostarsi in un altra drectory specificata dal path\n")
+    print ("pwd\t\tConsente di visualizzare il path della directory corrente\n")
+    print("download \"nome file\"\tScarica il file selezionato\n")
 
 #Preleva e formatta informazioni sul sistema
 def SystemInfo():
     NetworkName = platform.node()
     macchina = platform.machine()
     piattaforma = platform.platform()
-    messaggio = 'OS: ' + piattaforma + '\nNetwork Name: ' + NetworkName + '\nType: ' + macchina + '\n'
+    messaggio = 'Sistema:\nOS: ' + piattaforma + '\nNetwork Name: ' + NetworkName + '\nType: ' + macchina + '\n' 
+    messaggio = messaggio + "\nCPU: \n" + CPUInfo() + "\n" + MemoryInfo() + "\nDisks: \n" + DiskInfo() + "\n"
     return messaggio
 #Preleva e formatta le informazioni sulla CPU
 def CPUInfo():
@@ -78,3 +75,8 @@ def DiskInfo():
             part.fstype,
             part.mountpoint) + "\n"
     return messaggio
+
+def download_file(file,fileName):
+    newFile = open(os.path.join(os.getcwd(),fileName),"ab")
+    newFile.write(file)
+    newFile.close()

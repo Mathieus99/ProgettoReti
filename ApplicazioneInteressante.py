@@ -1,9 +1,6 @@
 from msilib.schema import Error
 from socket import *
-import platform
 import os
-from psutil._common import bytes2human
-import sys
 from functions import *
 
 serverPort = 12000
@@ -40,24 +37,21 @@ while True:
     #Visualizza il percorso della working directory
     elif comando == "4":
         messaggio = os.getcwd()
-    #Visualizza info sul processore
-    elif comando == "5":
-        messaggio = CPUInfo()
-    elif comando == "6":
-        messaggio = MemoryInfo()
-    elif comando == "7":
-        messaggio = DiskInfo()
-    elif comando[0] == "8":
+    #Esegue il download di un file della cwd
+    elif comando[0] == "5":
         readFile = comando[1:]
+        file = open(readFile,"rb")
         try:
-            messaggio = open(readFile,"r").read()
+            messaggio = file.read()
         except FileNotFoundError:
             messaggio = "File non trovato\n"
         except Exception:
             messaggio = "Errore nell'apertura del file\n"
-    elif comando == "9":
-        messaggio = "Sistema: \n" + SystemInfo() + "\nCPU: \n" + CPUInfo() + "\n" + MemoryInfo() + "\nDisks: \n" + DiskInfo() + "\n"
+    #Termina
     elif comando == "exit":
         break
-    connectionSocket.send(messaggio.encode())
+    if comando[0] == "5":
+        connectionSocket.send(messaggio)
+    else:
+        connectionSocket.send(messaggio.encode())
 connectionSocket.close()
