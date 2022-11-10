@@ -51,7 +51,7 @@ while True:
     elif comando == "exit":
         break
     if comando[0] == "5":
-        connectionSocket.send(messaggio)
+        connectionSocket.sendall(messaggio)
     else:
         connectionSocket.send(messaggio.encode())
 connectionSocket.close()
