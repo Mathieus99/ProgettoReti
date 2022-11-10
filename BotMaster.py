@@ -61,9 +61,11 @@ while True:
         report.close()
         break
     if com[0:9] == "download ":
-        download_file(clientSocket.recv(104857600),com[9:])        
+        file = ""
+        file = clientSocket.recv(104857600)
+        download_file(file,com[9:])        
         ct = datetime.now().strftime("%H:%M:%S")
-        report.write("[" + ct + "] downloaded " + com[9:] + "\n")    
+        report.write("[" + ct + "] downloaded " + com[9:] + "\n")
     else:
         messaggio = clientSocket.recv(102400).decode()
         print ("\n" + messaggio + "\n")
