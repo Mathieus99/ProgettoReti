@@ -8,7 +8,7 @@ serverSocket.bind( ('',serverPort) )
 serverSocket.listen(1)
 connectionSocket, addr = serverSocket.accept()
 while True:
-    messaggio = ""
+    messaggio = " "
     comando = connectionSocket.recv(1024).decode()
     # Visualizza info sul sistema operativo e sulla macchina
     if comando == "1":
@@ -16,6 +16,8 @@ while True:
     #Visualizza i file presenti nella directory corrente
     elif comando == "2":
         ls = os.listdir()
+        if len (ls) != 0:
+            messaggio = ""
         for x in ls:
             messaggio = messaggio + x + "\n"
     #Cambia directory secondo quanto specificato in path
