@@ -1,4 +1,3 @@
-from msilib.schema import Error
 from socket import *
 import os
 from functions import *
