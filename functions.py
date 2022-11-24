@@ -2,6 +2,7 @@ import psutil
 from psutil._common import bytes2human
 import platform
 import os
+from datetime import datetime
 
 def cmd_list():
     print ("\nLista comandi\n")
@@ -76,7 +77,8 @@ def DiskInfo():
             part.mountpoint) + "\n"
     return messaggio
 
-def download_file(file,fileName):
+def download_file(filePack,fileName):
     newFile = open(os.path.join(os.getcwd(),fileName),"ab")
-    newFile.write(file)
+    for x in filePack:
+        newFile.write(x)
     newFile.close()
