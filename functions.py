@@ -11,6 +11,8 @@ def cmd_list():
     print ("cd\t\tConsente di spostarsi in un altra drectory specificata dal path\n")
     print ("pwd\t\tConsente di visualizzare il path della directory corrente\n")
     print("download \"nome file\"\tScarica il file selezionato\n")
+    print("exit\t\tChiude la connessione con il bot\n")
+    print("close\t\tChiude il bot master\n")
 
 #Preleva e formatta informazioni sul sistema
 def SystemInfo():
