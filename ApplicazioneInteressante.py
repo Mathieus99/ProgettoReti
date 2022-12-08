@@ -62,7 +62,7 @@ while True:
             readFile = comando[1:]
             try:
                 file = open(readFile,"rb")
-                messaggio = file.read()
+                filecontent = file.read()
             except FileNotFoundError:
                 messaggio = "File non trovato\n"
             except PermissionError:
@@ -77,13 +77,13 @@ while True:
                 if(messaggio == "File non trovato\n" or messaggio == "Permesso negato\n" or messaggio == "Errore nell'apertura del file\n"):
                     raise Exception
                 else:
-                    clientSocket.send("Ok\n".encode())
-                msglen = len(messaggio)
+                    clientSocket.send("Ok".encode())
+                msglen = len(filecontent)
                 clientSocket.send(str(msglen).encode())
                 totsent = 0
                 while totsent < msglen:
                     try:
-                        sent = clientSocket.send(messaggio[totsent:])
+                        sent = clientSocket.send(filecontent[totsent:])
                         if sent == 0:
                             raise RuntimeError
                         totsent += sent

@@ -66,7 +66,7 @@ while True:
             if com[0:9] == "download ":
                 try:
                     messaggio = client.recv(4096).decode()
-                    if(messaggio != "Ok\n"):
+                    if(messaggio == "File non trovato\n" or messaggio == "Permesso negato\n" or messaggio == "Errore nell'apertura del file\n"):
                         raise Exception
                     filename = com[9:]
                     packs = []
