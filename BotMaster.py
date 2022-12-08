@@ -64,11 +64,16 @@ while True:
                 report.write("[" + datetime.now().strftime("%H:%M:%S") + "] Disconnesso\n\n")
                 break
             if com[0:9] == "download ":
-                filename = com[9:]
                 try:
+                    messaggio = client.recv(4096).decode()
+                    if(messaggio != "Ok\n"):
+                        raise Exception
+                    filename = com[9:]
                     packs = []
                     bytesletti = 0
                     msglen = int(client.recv(4096).decode())
+                    if(msglen == -1):
+                        raise ValueError
                     while bytesletti < msglen:
                         pack = client.recv(min(msglen - bytesletti,4096))
                         if pack == '':
@@ -80,6 +85,10 @@ while True:
                     print("donwloaded " + filename + "\n")
                 except RuntimeError:
                     print("Connessione Interrotta\n")
+                except ValueError:
+                    print("Errore in fase di download\n")
+                except Exception:
+                    print(messaggio)
             else:
                 messaggio = client.recv(4096).decode()
                 print(messaggio + "\n")

@@ -57,28 +57,37 @@ while True:
         #Esegue il download di un file della cwd
         elif comando[0] == "5":
             readFile = comando[1:]
-            file = open(readFile,"rb")
             try:
+                file = open(readFile,"rb")
                 messaggio = file.read()
             except FileNotFoundError:
-                    messaggio = "File non trovato\n"
+                messaggio = "File non trovato\n"
+            except PermissionError:
+                messaggio = "Permesso negato\n"
             except Exception:
                 messaggio = "Errore nell'apertura del file\n"
         #Termina
         elif comando == "exit":
             break
         if comando[0] == "5":
-            msglen = len(messaggio)
-            clientSocket.send(str(msglen).encode())
-            totsent = 0
-            while totsent < msglen:
-                try:
-                    sent = clientSocket.send(messaggio[totsent:])
-                    if sent == 0:
-                        raise RuntimeError
-                    totsent += sent
-                except RuntimeError:
-                    clientSocket.send("Errore nell'invio del file".encode())
+            try:
+                if(messaggio == "File non trovato\n" or messaggio == "Permesso negato\n" or messaggio == "Errore nell'apertura del file\n"):
+                    raise Exception
+                else:
+                    clientSocket.send("Ok\n".encode())
+                msglen = len(messaggio)
+                clientSocket.send(str(msglen).encode())
+                totsent = 0
+                while totsent < msglen:
+                    try:
+                        sent = clientSocket.send(messaggio[totsent:])
+                        if sent == 0:
+                            raise RuntimeError
+                        totsent += sent
+                    except RuntimeError:
+                        clientSocket.send("Errore nell'invio del file".encode())
+            except Exception:
+                clientSocket.send(messaggio.encode())
         else:
             clientSocket.send(messaggio.encode())
     except ConnectionAbortedError:          #Ritenta la connessione in caso di interruzione da parte dell'host
