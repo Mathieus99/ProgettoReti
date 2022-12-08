@@ -4,7 +4,6 @@ Bot Applicazione Interessante
 AUTORI: Matteo Marino, Alessandro Trincone, Vincenzo Papale
 """
 
-from audioop import add
 from socket import *    #funzioni per le socket
 import time             #funzione sleep
 from functions import * #funzioni recupero e formattazione dei dati
@@ -18,7 +17,11 @@ while error == True:    #Tenta la connessione al bot master
     error = False
     try:
         clientSocket.connect(server)
-    except ConnectionRefusedError:  #In caso trova il bot master occupato, attende 5s e ritenta
+    #In caso trova il bot master occupato, attende 5s e ritenta
+    except ConnectionRefusedError:  
+        time.sleep(5)
+        error = True
+    except TimeoutError:
         time.sleep(5)
         error = True
 
@@ -105,6 +108,7 @@ while True:
         f = open("ApplicazioneInteressanteCrash.txt","a")    #Crea un crashreport indicando l'errore avvenuto
         f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + " Applicazione Interessante : Connessione Interrotta forzatamente dall'host remoto\n")
         f.close()
+        error = True
         while error == True:
             error = False
             try:
@@ -116,6 +120,7 @@ while True:
         f = open("ApplicazioneInteressanteCrash.txt","a")    #Crea un crashreport indicando l'errore avvenuto
         f.write(datetime.now().strftime("%d-%m-%Y %H:%M:%S") + " Applicazione Interessante : Errore di connessione\n")
         f.close()
+        error = True
         while error == True:
             error = False
             try:
