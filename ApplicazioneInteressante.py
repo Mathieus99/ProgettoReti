@@ -8,7 +8,7 @@ from socket import *    #funzioni per le socket
 import time             #funzione sleep
 from functions import * #funzioni recupero e formattazione dei dati
 
-serverName = "localhost"            #IP del bot master
+serverName = "192.168.1.67"            #IP del bot master
 serverPort = 12000                  #porta su cui comunica il bot master
 server = (serverName,serverPort)
 clientSocket = socket(AF_INET, SOCK_STREAM)     #creazione del socket
